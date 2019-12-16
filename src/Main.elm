@@ -21,11 +21,17 @@ type alias Panel =
 
 type alias Model = List Panel
 
+test : Model
 test = 
   [ 
     Panel 0 "hello"
     , Panel 1 "yikes" 
     , Panel 2 "ultra yikes"
+    , Panel 3 "ultra super yikes"
+    , Panel 4 "ok can i write css now"
+    , Panel 5 "no not yet but soon"
+    , Panel 6 "ok can i write css now"
+    , Panel 7 "no not yet but soon"
   ]
 
 init : Model
@@ -51,9 +57,9 @@ update msg model =
 
 singlePanel : Panel -> Html msg
 singlePanel panel = 
-  section [ Html.Attributes.class "main-1" ]
+  section [ Html.Attributes.class ( String.fromInt panel.id ) ]
   [
-    textarea [] [ text panel.text ]
+    textarea [] [ text ( String.concat [ String.fromInt panel.id, " - ", panel.text ] ) ]
   ]
 
 allPanels : Model -> List (Html msg)
@@ -62,12 +68,11 @@ allPanels model =
 
 joinPanels : Model -> Html msg
 joinPanels model =
-  div [] (List.map singlePanel model)
+  div [ Html.Attributes.class "panels" ] (List.map singlePanel model)
 
 view : Model -> Html Msg
 view model =
-  div [ Html.Attributes.class "main" ]
-    [
-      Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "style.css" ] []
-      , ( joinPanels model )
-    ]
+  div [] [
+    Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "style.css" ] []
+    , joinPanels model
+  ]

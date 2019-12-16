@@ -1,3 +1,25 @@
 body {
 	background-color: green;
 }
+
+.panels {
+	display: grid;
+	grid-template-columns: repeat( 4, 1fr );
+	grid-template-rows: repeat( 2, 1fr );
+}
+
+textarea {
+	width: 100%;
+}
+
+@media print {
+
+	.panels > *:nth-child(1),
+	.panels > *:nth-child(2),
+	.panels > *:nth-child(3),
+	.panels > *:nth-child(4) {
+		transform: rotate(180deg);
+		transform-origin: center center;
+	}
+
+}
